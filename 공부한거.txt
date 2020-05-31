@@ -3,3 +3,5 @@ GetComponent() -> 원하는 타입의 컴포넌트를 자신의 게임 오브젝
 Input.GetAxis(string axisName) -> 함수인자로 축의 이름을 받는다. Horizontal 에 대응되는 키는 <-, ->, a, d이고 Vertical에 대응되는 키는 ↓,↑,w,s이다.양의값을 누르면 1, 음의값을 누르면 -1, 누르지 않으면 0을 리턴한다.
 Destroy(Object obj) -> 게임오브젝트가 즉시 파괴된다. 단 지연시간을 2번째 인자로 넣어서 지연시간을 줄 수 있다.
 FindObjectOfType() -> <>안에 해당하는 모든 컴포넌트를 찾는다. 값이 비싸다.
+Trnasform.Rotate(float xAngle, float yAngle , float zAngle) ->상대적으로 더 회전한다.
+PlayerPrefs.SetFloat(strgin key, float value) -> 
