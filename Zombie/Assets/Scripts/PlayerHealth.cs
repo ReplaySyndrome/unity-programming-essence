@@ -48,12 +48,15 @@ public class PlayerHealth : LivingEntity {
         if(!dead)
         {
             playerAudioPlayer.PlayOneShot(hitClip);
+            base.OnDamage(damage, hitPoint, hitDirection);
         }
         
         // LivingEntity의 OnDamage() 실행(데미지 적용)
-        base.OnDamage(damage, hitPoint, hitDirection);
+        
 
+        Debug.Log(health);
         healthSlider.value = health;
+        
     }
 
     // 사망 처리
