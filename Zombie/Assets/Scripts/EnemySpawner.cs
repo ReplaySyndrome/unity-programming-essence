@@ -46,9 +46,40 @@ public class EnemySpawner : MonoBehaviour {
 
     // 현재 웨이브에 맞춰 적을 생성
     private void SpawnWave() {
+
+        ++wave;
+
+        int spawnCount = Mathf.RoundToInt(wave * 1.5f); // 반올림
+
+        for(int i=0;i<spawnCount;++i)
+        {
+            float enemyIntensity = Random.Range(0f, 1f);
+            CreateEnemy(enemyIntensity);
+        }
+
     }
 
     // 적을 생성하고 생성한 적에게 추적할 대상을 할당
     private void CreateEnemy(float intensity) {
+
+        float heatlh = Mathf.Lerp(healthMin, healthMax, intensity);
+        float damage = Mathf.Lerp(damageMin, damageMax, intensity);
+        float speed = Mathf.Lerp(speedMin, speedMax, intensity);
+
+        Color skinColor = Color.Lerp(Color.white, strongEnemyColor, intensity);
+
+        Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
+
+        Enemy enemy = Instantiate(enemyPrefab, spawnPoint.position, spawnPoint.rotation);
+
+        enemy.Setup(heatlh, damage, speed,skinColor);
+
+        enemies.Add(enemy);
+
+        //적의 ondeath 이벤트에 익명 메서드 등록
+        //사망한 적을 리스트에서 제거
+        enemy.onDeath += () => enemies.Remove(enemy);
+        enemy.onDeath += () => Destroy(enemy.gameObject,10.0f);
+        enemy.onDeath += () => GameManager.instance.AddScore(100);
     }
 }
